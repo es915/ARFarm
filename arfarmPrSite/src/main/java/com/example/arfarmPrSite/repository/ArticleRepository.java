@@ -1,12 +1,8 @@
 package com.example.arfarmPrSite.repository;
 
-import org.springframework.stereotype.Repository;
+import com.example.arfarmPrSite.domain.Article;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class ArticleRepository {
-
-
-
-
+public interface ArticleRepository extends JpaRepository<Article, Long> {
 
 }

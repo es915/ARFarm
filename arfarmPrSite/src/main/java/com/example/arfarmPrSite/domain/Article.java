@@ -50,26 +50,26 @@ public class Article {
 
     // 비즈니스 로직
     // 좋아요 +1
-    public void plusLike(Article article) {
-        article.like++;
+    public void plusLike() {
+        this.like++;
     }
 
-    public void resetLike(Article article) {
-        article.like=0;
+    public void resetLike() {
+        this.like=0;
     }
 
     // 게시물 상태 변경
-    private void changeState(Article article) {
-        if (article.articleState==ArticleState.OPEN) {
-            article.articleState=ArticleState.CLOSE;
+    public void changeState() {
+        if (this.articleState==ArticleState.OPEN) {
+            this.articleState=ArticleState.CLOSE;
         } else {
-            article.articleState=ArticleState.OPEN;
+            this.articleState=ArticleState.OPEN;
         }
     }
 
     // 게시물 내릴때 일시 등록
-    private void setUnregisteredDate(LocalDateTime time) {
-        this.UnregisteredDate = time;
+    public void setUnregisteredDate() {
+        this.UnregisteredDate = LocalDateTime.now();
     }
 
 
