@@ -38,17 +38,19 @@ public class CommentService {
     // 댓글 삭제 - 관리자용
     @Transactional
     public Long remove(Long id) {
-
-
-        return 0L;
+        Comment comment = commentRepository.findById(id).get();
+        commentRepository.delete(comment);
+        return comment.getId();
     }
-
-
-
 
     // 댓글 전체 조회
     public List<Comment> comments() {
         return commentRepository.findAll();
+    }
+
+    // 보류 댓글 확인 조회
+    public List<Comment> holdComments() {
+        return commentRepository.findAllByCommentState(CommentState.HOLD);
     }
 
     private CommentState checkComment(String description) {

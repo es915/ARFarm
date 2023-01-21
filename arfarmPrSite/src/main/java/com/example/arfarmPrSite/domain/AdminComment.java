@@ -17,7 +17,7 @@ public class AdminComment extends BaseTime {
 
     private String description;
 
-    @OneToOne(mappedBy = "admin_comment")
+    @OneToOne(mappedBy = "admin_comment", orphanRemoval = true)
     private Comment comment;
 
 }
