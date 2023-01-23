@@ -40,6 +40,14 @@ public class Comment extends BaseTime {
         }
     }
 
+    public void changeState(CommentState state) {
+        if (state == CommentState.PASS) {
+            this.state = CommentState.PASS;
+        } else if (state == CommentState.HOLD) {
+            this.state = CommentState.HOLD;
+        }
+    }
+
     private Comment(String name, String email, String phoneNumber, String description, CommentState state) {
             this.name = name;
             this.email = email;

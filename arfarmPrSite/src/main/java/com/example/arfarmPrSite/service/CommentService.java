@@ -1,5 +1,6 @@
 package com.example.arfarmPrSite.service;
 
+import com.example.arfarmPrSite.domain.AdminComment;
 import com.example.arfarmPrSite.domain.Comment;
 import com.example.arfarmPrSite.domain.CommentDto;
 import com.example.arfarmPrSite.domain.CommentState;
@@ -35,6 +36,22 @@ public class CommentService {
 
     }
 
+    // 보류 댓글 풀기 - 관리자용
+    @Transactional
+    public Long stateToPass(Long id) {
+        Comment comment = commentRepository.findById(id).get();
+        comment.changeState(CommentState.PASS);
+        return comment.getId();
+    }
+
+    // 댓글 보류 하기 - 관리자용
+    @Transactional
+    public Long stateToHold(Long id) {
+        Comment comment = commentRepository.findById(id).get();
+        comment.changeState(CommentState.HOLD);
+        return comment.getId();
+    }
+
     // 댓글 삭제 - 관리자용
     @Transactional
     public Long remove(Long id) {
@@ -51,6 +68,12 @@ public class CommentService {
     // 보류 댓글 확인 조회
     public List<Comment> holdComments() {
         return commentRepository.findAllByCommentState(CommentState.HOLD);
+    }
+
+    // 관리자 댓글 조회
+    public AdminComment viewAdminComment(Long id) {
+        Comment comment = commentRepository.findById(id).get();
+        return comment.getAdmin_comment();
     }
 
     private CommentState checkComment(String description) {
