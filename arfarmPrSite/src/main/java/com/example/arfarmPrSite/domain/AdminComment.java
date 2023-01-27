@@ -20,4 +20,13 @@ public class AdminComment extends BaseTime {
     @OneToOne(mappedBy = "admin_comment", orphanRemoval = true)
     private Comment comment;
 
+    public static AdminComment createComment(AdminCommentDto adminCommentDto, Comment comment) {
+        return new AdminComment(adminCommentDto.getDescription(), comment);
+    }
+
+    private AdminComment(String description, Comment comment) {
+        this.description = description;
+        this.comment = comment;
+    }
+
 }

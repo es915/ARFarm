@@ -1,9 +1,7 @@
 package com.example.arfarmPrSite.service;
 
-import com.example.arfarmPrSite.domain.AdminComment;
-import com.example.arfarmPrSite.domain.Comment;
-import com.example.arfarmPrSite.domain.CommentDto;
-import com.example.arfarmPrSite.domain.CommentState;
+import com.example.arfarmPrSite.domain.*;
+import com.example.arfarmPrSite.repository.AdminCommentRepository;
 import com.example.arfarmPrSite.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,11 +17,11 @@ import static com.example.arfarmPrSite.domain.Comment.createComment;
 public class CommentService {
 
     private final CommentRepository commentRepository;
+    private final AdminCommentRepository adminCommentRepository;
 
     // 댓글 등록하기
     @Transactional
     public Long commit(CommentDto commentDto) {
-
         CommentState state = checkComment(commentDto.getDescription());
 
         if (state == CommentState.HOLD) {
@@ -33,7 +31,6 @@ public class CommentService {
         Comment comment = createComment(commentDto, state);
         commentRepository.save(comment);
         return comment.getId();
-
     }
 
     // 보류 댓글 풀기 - 관리자용
