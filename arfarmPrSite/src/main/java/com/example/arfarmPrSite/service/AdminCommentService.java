@@ -32,6 +32,12 @@ public class AdminCommentService {
     }
 
     // 댓글 삭제
+    @Transactional
+    public Long removeAdminComment(Long id) {
+        AdminComment comment = adminCommentRepository.findById(id).get();
+        adminCommentRepository.delete(comment);
+        return comment.getId();
+    }
 
 
 }
