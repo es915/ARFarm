@@ -15,22 +15,18 @@ public class EmailService {
     private final EmailRepository emailRepository;
 
     @Transactional
-    public Long create(EmailDto emailDto) {
-        if (duplicateCheck(emailDto.getEmail())) {
-            return emailRepository.findByEmail(emailDto.getEmail()).get().getId();
-        }
-        Email email = Email.registeredEmail(emailDto.getEmail());
-        emailRepository.save(email);
-        return email.getId();
+    public Email create(EmailDto emailDto) {
+        duplicateCheck(emailDto.getEmail());
+        return emailRepository.save(Email.registeredEmail(emailDto.getEmail()));
     }
 
-    private boolean duplicateCheck(String email) {
+    private void duplicateCheck(String email) {
         try {
             emailRepository.findByEmail(email);
         } catch (NullPointerException e) {
-            return false; // 중복이 안될경우
+            throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
-        return true; // 중복이 된 경우
+
     }
 
 }

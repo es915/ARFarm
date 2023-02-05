@@ -27,7 +27,7 @@ public class Comment extends BaseTime {
     @Column(nullable = false)
     private CommentState state;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="admin_comment_id")
     private AdminComment admin_comment;
 

@@ -17,7 +17,7 @@ public class AdminComment extends BaseTime {
 
     private String description;
 
-    @OneToOne(mappedBy = "admin_comment", orphanRemoval = true)
+    @OneToOne(mappedBy = "admin_comment", orphanRemoval = true, fetch = FetchType.LAZY)
     private Comment comment;
 
     public static AdminComment createComment(AdminCommentDto adminCommentDto, Comment comment) {
